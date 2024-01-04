@@ -1,9 +1,7 @@
 package com.luv2code.springcoredemo.rest;
 
-import com.luv2code.springcoredemo.common.BasketballCoach;
 import com.luv2code.springcoredemo.common.Coach;
 import com.luv2code.springcoredemo.common.Car;
-import com.luv2code.springcoredemo.common.DieselCar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +24,7 @@ public class DemoController {
     @Autowired
     public void setMyCar(@Qualifier("dieselCar") Car theCar){
         //@Qualifier anatasyonu Car sınıfının implement olduğu classlar arasından "dieselCar" sınıfını bulup objeyi ordan oluşturur.
-        myCar=theCar; //myCar =new DieselCar();
+        myCar=theCar; // myCar =new DieselCar();
     }
 
 
