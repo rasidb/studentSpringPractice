@@ -1,8 +1,11 @@
 package com.luv2code.springcoredemo.rest;
 
+import com.luv2code.springcoredemo.common.BasketballCoach;
 import com.luv2code.springcoredemo.common.Coach;
 import com.luv2code.springcoredemo.common.Car;
+import com.luv2code.springcoredemo.common.DieselCar;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,16 +19,18 @@ public class DemoController {
     //define a constructor for dependency injection
 
     @Autowired
-    public DemoController(Coach theCoach) {
-        myCoach = theCoach;
+    public DemoController(@Qualifier("basketballCoach") Coach basketballCoach,@Qualifier("anotherCoach")Coach anotherCoach) {
+        myCoach = anotherCoach;
     }
+
     @Autowired
-    public void setMyCar(Car theCar){
-        myCar=theCar;
+    public void setMyCar(@Qualifier("dieselCar") Car theCar){
+        //@Qualifier anatasyonu Car sınıfının implement olduğu classlar arasından "dieselCar" sınıfını bulup objeyi ordan oluşturur.
+        myCar=theCar; //myCar =new DieselCar();
     }
 
 
-    @GetMapping("/dailyworkout")
+    @GetMapping("/coach")
     public String dailyWorkout() {
         return myCoach.getDailyWorkout();
     }
