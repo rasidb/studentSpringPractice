@@ -16,10 +16,14 @@ public class DemoController {
     //define a constructor for dependency injection
 
     @Autowired
-    public DemoController(Coach theCoach,Car theCar) {
+    public DemoController(Coach theCoach) {
         myCoach = theCoach;
-        myCar = theCar;
     }
+    @Autowired
+    public void setMyCar(Car theCar){
+        myCar=theCar;
+    }
+
 
     @GetMapping("/dailyworkout")
     public String dailyWorkout() {
