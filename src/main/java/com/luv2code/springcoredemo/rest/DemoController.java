@@ -11,29 +11,37 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
 
     //define a private field for the dependency
-    private Coach myCoach;
+    private Coach basketballCoach;
+    private Coach anotherCoach;
     private Car myCar;
 
     //define a constructor for dependency injection
 
     @Autowired
-    public DemoController(@Qualifier("basketballCoach") Coach basketballCoach,@Qualifier("anotherCoach")Coach anotherCoach) {
-        myCoach = anotherCoach;
+    public DemoController(@Qualifier("basketballCoach") Coach basketballCoach, @Qualifier("anotherCoach") Coach anotherCoach) {
+        this.anotherCoach = anotherCoach;
+        this.basketballCoach = basketballCoach;
     }
 
     @Autowired
-    public void setMyCar(@Qualifier("dieselCar") Car theCar){
+    public void setMyCar(@Qualifier("dieselCar") Car theCar) {
         //@Qualifier anatasyonu Car sınıfının implement olduğu classlar arasından "dieselCar" sınıfını bulup objeyi ordan oluşturur.
-        myCar=theCar; // myCar =new DieselCar();
+        myCar = theCar; // myCar =new DieselCar();
     }
 
 
     @GetMapping("/coach")
     public String dailyWorkout() {
-        return myCoach.getDailyWorkout();
+        return basketballCoach.getDailyWorkout();
     }
+
+    @GetMapping("/check")
+    public String check() {
+        return "comparing beans : basketballCoach == anotherCoach:  "+(basketballCoach==anotherCoach);
+    }
+
     @GetMapping("/car")
-    public String getCar(){
-    return myCar.showCar();
+    public String getCar() {
+        return myCar.showCar();
     }
 }

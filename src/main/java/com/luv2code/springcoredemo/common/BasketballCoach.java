@@ -1,6 +1,7 @@
 package com.luv2code.springcoredemo.common;
 
-import com.luv2code.springcoredemo.common.Coach;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE) //default olarak prototype geliyor yani her obje için farklı bi bean nesnesi oluşuyor
+//veri tabanına bağlanmak gibi şeyler için singleton, her kullanıcı için farklı bir alışveriş sepeti gibi durumlarda prototype
 public class BasketballCoach implements Coach {
 public BasketballCoach(){
     System.out.println(getClass().getSimpleName());
