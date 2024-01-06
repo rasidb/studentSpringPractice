@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
 
     //define a private field for the dependency
-    private Coach basketballCoach;
+    private Coach myCoach;
     private Car myCar;
 
     //define a constructor for dependency injection
 
     @Autowired
-    public DemoController(@Qualifier("basketballCoach") Coach basketballCoach) {
-        this.basketballCoach = basketballCoach;
+    public DemoController(@Qualifier("swimCoach") Coach theCoach) {
+        myCoach= theCoach;
     }
 
     @Autowired
@@ -30,7 +30,7 @@ public class DemoController {
 
     @GetMapping("/coach")
     public String dailyWorkout() {
-        return basketballCoach.getDailyWorkout();
+        return myCoach.getDailyWorkout();
     }
 
     @GetMapping("/car")
