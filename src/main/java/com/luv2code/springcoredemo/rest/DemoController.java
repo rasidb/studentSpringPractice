@@ -24,7 +24,7 @@ public class DemoController {
     @Autowired
     public void setMyCar(@Qualifier("dieselCar") Car theCar) {
         //@Qualifier anatasyonu Car sınıfının implement olduğu classlar arasından "dieselCar" sınıfını bulup objeyi ordan oluşturur.
-        myCar = theCar; // myCar =new DieselCar();
+        myCar = theCar;
     }
 
 
