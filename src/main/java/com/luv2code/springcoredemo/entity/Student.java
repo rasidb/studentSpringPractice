@@ -80,9 +80,6 @@ public class Student {
 
 
     //define toString(); method
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return "Student{" +

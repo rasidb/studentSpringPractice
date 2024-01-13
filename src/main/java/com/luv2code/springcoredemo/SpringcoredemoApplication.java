@@ -2,6 +2,7 @@ package com.luv2code.springcoredemo;
 
 import com.github.javafaker.Faker;
 import com.luv2code.springcoredemo.dao.StudentDAO;
+import com.luv2code.springcoredemo.dao.impl.StudentDAOImpl;
 import com.luv2code.springcoredemo.entity.Student;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -33,8 +34,12 @@ public class SpringcoredemoApplication {
     public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
         return runner -> {
             //createStudent(studentDAO);
-            createMultipleStudent(studentDAO);
+            getAllStudents(studentDAO);
         };
+    }
+
+    private void getAllStudents(StudentDAO studentDAO) {
+        System.out.println(studentDAO.findAll());
     }
 
     private void createMultipleStudent(StudentDAO studentDAO) {
@@ -67,4 +72,12 @@ public class SpringcoredemoApplication {
         // Kaydedilen öğrencinin kimliğini ekrana yazdır
         System.out.println("Student id = " + student.getId());
     }
+
+    private void readStudent(StudentDAO studentDAO){
+        Student student =new Student("rasid","babamgul","woodenspoon@gmail.com");
+        studentDAO.save(student);
+        Student myStudent =studentDAO.findById(student.getId());
+        System.out.println(myStudent);
+    }
+
 }
