@@ -26,8 +26,6 @@ public class DemoController {
         //@Qualifier anatasyonu Car sınıfının implement olduğu classlar arasından "dieselCar" sınıfını bulup objeyi ordan oluşturur.
         myCar = theCar;
     }
-
-
     @GetMapping("/coach")
     public String dailyWorkout() {
         return myCoach.getDailyWorkout();

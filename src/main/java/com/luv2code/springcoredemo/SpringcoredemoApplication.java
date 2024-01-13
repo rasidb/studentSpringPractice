@@ -2,12 +2,13 @@ package com.luv2code.springcoredemo;
 
 import com.github.javafaker.Faker;
 import com.luv2code.springcoredemo.dao.StudentDAO;
-import com.luv2code.springcoredemo.dao.impl.StudentDAOImpl;
 import com.luv2code.springcoredemo.entity.Student;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 /**
  * Spring Boot uygulamasının ana sınıfıdır.
@@ -34,8 +35,20 @@ public class SpringcoredemoApplication {
     public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
         return runner -> {
             //createStudent(studentDAO);
-            getAllStudents(studentDAO);
+            //findByLastName(studentDAO);
+            changeFirstName(studentDAO,1,"patates");
         };
+    }
+
+    private void changeFirstName(StudentDAO studentDAO,int id,String name) {
+        Student student = studentDAO.findById(id);
+        student.setFirstName(name);
+        studentDAO.update(student);
+        System.out.println(studentDAO.findById(id));
+    }
+
+    private void findByLastName(StudentDAO studentDAO) {
+        System.out.println(studentDAO.findByLastName("babamgul"));
     }
 
     private void getAllStudents(StudentDAO studentDAO) {

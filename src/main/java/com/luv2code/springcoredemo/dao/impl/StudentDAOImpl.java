@@ -4,6 +4,7 @@ import com.luv2code.springcoredemo.dao.StudentDAO;
 import com.luv2code.springcoredemo.entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,16 +51,26 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    @Transactional
     public Student findById(Integer id) {
         return entityManager.find(Student.class, id);
     }
 
     @Override
-    @Transactional
     public List<Student> findAll() {
-        Query fromStudent = entityManager.createQuery("from Student");
-        List<Student> resultList = fromStudent.getResultList();
-        return resultList;
+        TypedQuery<Student> fromStudent = entityManager.createQuery("from Student",Student.class);
+        return fromStudent.getResultList();
+    }
+
+    @Override
+    public List<Student> findByLastName(String lastName) {
+        TypedQuery<Student> query = entityManager.createQuery("from Student where lastName=:theData", Student.class);
+        query.setParameter("theData", lastName);
+        return query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public void update(Student student) {
+     entityManager.merge(student);
     }
 }
