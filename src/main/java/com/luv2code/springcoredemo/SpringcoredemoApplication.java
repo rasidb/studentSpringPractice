@@ -8,7 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.List;
 
 /**
  * Spring Boot uygulamasının ana sınıfıdır.
@@ -36,11 +35,25 @@ public class SpringcoredemoApplication {
         return runner -> {
             //createStudent(studentDAO);
             //findByLastName(studentDAO);
-            changeFirstName(studentDAO,1,"patates");
+            //changeFirstName(studentDAO,1,"patates");
+            // removeStudentById(studentDAO,58);
+            //createMultipleStudent(studentDAO);
         };
     }
 
-    private void changeFirstName(StudentDAO studentDAO,int id,String name) {
+    private void deleteAll(StudentDAO studentDAO) {
+        System.out.println(studentDAO.deleteAll() + " student was deleted");
+    }
+
+    private void removeByLastname(StudentDAO studentDAO, String lastname) {
+        System.out.println(studentDAO.deleteByLastname(lastname) + " student was deleted");
+    }
+
+    private void removeStudentById(StudentDAO studentDAO, int id) {
+        studentDAO.removeStudent(id);
+    }
+
+    private void changeFirstName(StudentDAO studentDAO, int id, String name) {
         Student student = studentDAO.findById(id);
         student.setFirstName(name);
         studentDAO.update(student);
@@ -86,10 +99,10 @@ public class SpringcoredemoApplication {
         System.out.println("Student id = " + student.getId());
     }
 
-    private void readStudent(StudentDAO studentDAO){
-        Student student =new Student("rasid","babamgul","woodenspoon@gmail.com");
+    private void readStudent(StudentDAO studentDAO) {
+        Student student = new Student("rasid", "babamgul", "woodenspoon@gmail.com");
         studentDAO.save(student);
-        Student myStudent =studentDAO.findById(student.getId());
+        Student myStudent = studentDAO.findById(student.getId());
         System.out.println(myStudent);
     }
 
