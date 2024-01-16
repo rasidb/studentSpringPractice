@@ -97,5 +97,10 @@ public class StudentDAOImpl implements StudentDAO {
         return query.executeUpdate();
     }
 
+    @Override
+    public List<Integer> getAllId() {
+        return entityManager.createQuery("select id from Student",Integer.class).getResultList();
+    }
+
 
 }

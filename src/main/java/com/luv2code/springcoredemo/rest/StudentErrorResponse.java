@@ -1,17 +1,17 @@
 package com.luv2code.springcoredemo.rest;
-
+//pojo class
 public class StudentErrorResponse {
-    private int statusCode;
-    private String message;
-    private long timeStamp;
+private int statusCode;
+private String message;
+private Long timeStamp;
 
-    public StudentErrorResponse(int statusCode, String message, long timeStamp) {
-        this.statusCode = statusCode;
+    public StudentErrorResponse(int status, String message, Long timeStamp) {
+        this.statusCode = status;
         this.message = message;
         this.timeStamp = timeStamp;
     }
+    public StudentErrorResponse(){
 
-    public StudentErrorResponse() {
     }
 
     public int getStatusCode() {
@@ -30,11 +30,11 @@ public class StudentErrorResponse {
         this.message = message;
     }
 
-    public long getTimeStamp() {
+    public Long getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(long timeStamp) {
+    public void setTimeStamp(Long timeStamp) {
         this.timeStamp = timeStamp;
     }
 }

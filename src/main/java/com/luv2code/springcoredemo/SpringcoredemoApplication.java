@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 
 /**
  * Spring Boot uygulamasının ana sınıfıdır.
@@ -30,7 +32,7 @@ public class SpringcoredemoApplication {
      * @param studentDAO Öğrenci veritabanı işlemlerini gerçekleştiren DAO arayüzü.
      * @return CommandLineRunner arayüzünü uygulayan bir nesne.
      */
-    @Bean
+    /*@Bean
     public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
         return runner -> {
             //createStudent(studentDAO);
@@ -38,8 +40,9 @@ public class SpringcoredemoApplication {
             //changeFirstName(studentDAO,1,"patates");
             // removeStudentById(studentDAO,58);
             //createMultipleStudent(studentDAO);
+    //        allId(studentDAO);
         };
-    }
+    }*/
 
     private void deleteAll(StudentDAO studentDAO) {
         System.out.println(studentDAO.deleteAll() + " student was deleted");
@@ -104,6 +107,10 @@ public class SpringcoredemoApplication {
         studentDAO.save(student);
         Student myStudent = studentDAO.findById(student.getId());
         System.out.println(myStudent);
+    }
+    private  void  allId(StudentDAO studentDAO){
+        List<Integer> allId = studentDAO.getAllId();
+        System.out.println(allId);
     }
 
 }

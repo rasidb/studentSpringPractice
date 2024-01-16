@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -30,18 +31,22 @@ public class StudentController {
         students.add(new Student("patates3", "dls", "456789"));
     }
 
-    @GetMapping(value = "/student")
-    public Student getStudent(@RequestParam(name = "id") int id) {
+
+    @GetMapping(value = "/students/{id}")
+    public Student getStudentPath(@PathVariable int id) {
+        List<Integer> allId = studentDAO.getAllId();
+        Collections.sort(allId);
+
+        int index = Collections.binarySearch(allId, id);
+
+        if (index < 0 || index >= allId.size()) {
+            throw new StudentNotFoundException("Student not found with ID: " + id);
+        }
+
         return studentDAO.findById(id);
     }
 
-    @GetMapping(value = "/student/{id}")
-    public Student getStudentPath(@PathVariable int id) {
-        if (id > studentDAO.findAll().size()) {
-            throw new StudentNotFoundException("student not found " + id);
-        }
-        return studentDAO.findById(id);
-    }
+
 
     @GetMapping(value = "/students")
     public List<Student> getStudents() {
@@ -60,4 +65,14 @@ public class StudentController {
         //return ResponseEntity
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+@ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> otherException(Exception e){
+    //create a StudentErrorResponse
+    StudentErrorResponse error = new StudentErrorResponse();
+    error.setStatusCode(HttpStatus.BAD_REQUEST.value());
+    error.setMessage(e.getMessage());
+    error.setTimeStamp(System.currentTimeMillis());
+    //return ResponseEntity
+    return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+}
 }
