@@ -1,4 +1,4 @@
-package com.luv2code.springcoredemo.rest;
+package com.luv2code.springcoredemo.rest.controller;
 
 import com.luv2code.springcoredemo.common.Coach;
 import com.luv2code.springcoredemo.common.Car;

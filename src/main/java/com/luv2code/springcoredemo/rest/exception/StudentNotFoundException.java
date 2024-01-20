@@ -1,4 +1,4 @@
-package com.luv2code.springcoredemo.rest;
+package com.luv2code.springcoredemo.rest.exception;
 
 public class StudentNotFoundException extends RuntimeException{
     public StudentNotFoundException(String message) {

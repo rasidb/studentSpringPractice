@@ -2,7 +2,9 @@ package com.luv2code.springcoredemo.dao.impl;
 
 import com.luv2code.springcoredemo.dao.StudentDAO;
 import com.luv2code.springcoredemo.entity.Student;
+import com.luv2code.springcoredemo.rest.exception.StudentBadRequestException;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceException;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +36,6 @@ public class StudentDAOImpl implements StudentDAO {
     public StudentDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-
-
     //implement save method
 
     /**
@@ -51,8 +51,10 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public Student findById(Integer id) {
-        return entityManager.find(Student.class, id);
+    public List<Student> findById(Integer id) {
+        TypedQuery<Student> query = entityManager.createQuery("from Student where id=:id", Student.class);
+        query.setParameter("id",id);
+        return query.getResultList();
     }
 
     @Override
@@ -80,9 +82,6 @@ public class StudentDAOImpl implements StudentDAO {
         Student student = entityManager.find(Student.class, id);
         entityManager.remove(student);
     }
-
-
-
     @Override
     @Transactional
     public int deleteAll() {
@@ -102,5 +101,31 @@ public class StudentDAOImpl implements StudentDAO {
         return entityManager.createQuery("select id from Student",Integer.class).getResultList();
     }
 
+    @Override
+    @Transactional
+    public void createStudent(Student student) {
+       try {
+           entityManager.persist(student);
+           entityManager.flush();
+           System.out.println("fdşsl");
+       }catch (PersistenceException e){
+           throw new StudentBadRequestException();
+       }
+    }
+
+    @Override
+    public List<Student> findByName(String patates) {
+        TypedQuery<Student> query = entityManager.createQuery("from Student where firstName = :patates", Student.class);
+        query.setParameter("patates",patates);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Student> findByIdAndLastName(String firstName, Integer id) {
+        TypedQuery<Student> query = entityManager.createQuery("select s from Student s where s.id = :id and s.firstName = :firstName", Student.class);
+        query.setParameter("id", id);
+        query.setParameter("firstName", firstName);
+        return query.getResultList();
+    }
 
 }

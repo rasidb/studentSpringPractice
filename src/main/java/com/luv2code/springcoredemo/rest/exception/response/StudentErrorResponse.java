@@ -1,4 +1,4 @@
-package com.luv2code.springcoredemo.rest;
+package com.luv2code.springcoredemo.rest.exception.response;
 //pojo class
 public class StudentErrorResponse {
 private int statusCode;

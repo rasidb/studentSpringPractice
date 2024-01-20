@@ -57,7 +57,7 @@ public class SpringcoredemoApplication {
     }
 
     private void changeFirstName(StudentDAO studentDAO, int id, String name) {
-        Student student = studentDAO.findById(id);
+        Student student = studentDAO.findById(id).get(0);
         student.setFirstName(name);
         studentDAO.update(student);
         System.out.println(studentDAO.findById(id));
@@ -105,8 +105,8 @@ public class SpringcoredemoApplication {
     private void readStudent(StudentDAO studentDAO) {
         Student student = new Student("rasid", "babamgul", "woodenspoon@gmail.com");
         studentDAO.save(student);
-        Student myStudent = studentDAO.findById(student.getId());
-        System.out.println(myStudent);
+       // Student myStudent = studentDAO.findById(student.getId());
+        //System.out.println(myStudent);
     }
     private  void  allId(StudentDAO studentDAO){
         List<Integer> allId = studentDAO.getAllId();
